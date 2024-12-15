@@ -1,0 +1,133 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0e1a2b; /* 어두운 배경 */
+    color: #c9d1d9;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #1c3a5f; /* 짙은 블루 헤더 */
+    padding: 15px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: #e6e6e6;
+    font-size: 28px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #c9d1d9;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffbb33;
+}
+.slidewrap {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* 슬라이드 전환 애니메이션 */
+}
+
+.slide {
+    flex: 0 0 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.store-items {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.item-card {
+    background-color: #1e2d44;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s;
+}
+
+.item-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.item-card h3 {
+    color: #ffbb33;
+    margin: 15px 0;
+}
+
+.item-card p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.buy-button {
+    background-color: #ffbb33;
+    color: #0e1a2b;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.buy-button:hover {
+    background-color: #ffc966;
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: #1c3a5f;
+    color: #c9d1d9;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+.item-card i {
+    font-size: 40px; /* 아이콘 크기 조정 */
+    color: #ffbb33; /* 아이콘 색상 */
+    display: block; /* 블록으로 표시하여 제목과 분리 */
+    margin-bottom: 10px; /* 간격 추가 */
+}

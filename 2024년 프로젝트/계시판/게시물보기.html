@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 보기</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .post-container {
+            width: 90%;
+            max-width: 700px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f6f9;
+            color: #555;
+            font-weight: bold;
+            width: 120px;
+            text-align: right;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .content-cell {
+            white-space: pre-line; /* 줄바꿈 유지 */
+        }
+
+        .image-container {
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        a, button {
+            display: inline-block;
+            background: #007bff;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        a:hover, button:hover {
+            background: #0056b3;
+        }
+
+        /* 수정 가능한 상태의 스타일 */
+        .editable {
+            outline: none; /* 포커스시 나타나는 외곽선 제거 */
+        }
+    </style>
+</head>
+<body>
+    <div class="post-container">
+        <h1>게시물 보기</h1>
+        <table>
+            <tr>
+                <th>제목</th>
+                <td id="post-title"></td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td id="post-author"></td>
+            </tr>
+            <tr>
+                <th>작성시간</th>
+                <td id="post-timestamp"></td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td id="post-content" class="content-cell"></td>
+            </tr>
+        </table>
+        <div class="image-container" id="image-container"></div>
+        <div id="disqus_thread"></div>
+        <a href="게시판.html">목록으로 돌아가기</a>
+        <button id="edit-button">수정</button>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const postIndex = parseInt(urlParams.get('index'));
+        let posts = JSON.parse(localStorage.getItem('posts')) || [];
+        const post = posts[postIndex];
+
+        // 요소 가져오기
+        const postTitle = document.getElementById('post-title');
+        const postAuthor = document.getElementById('post-author');
+        const postTimestamp = document.getElementById('post-timestamp');
+        const postContent = document.getElementById('post-content');
+        const editButton = document.getElementById('edit-button');
+
+        // 게시물 표시
+        if (post) {
+            postTitle.innerText = post.title;
+            postAuthor.innerText = post.author;
+            postTimestamp.innerText = post.timestamp;
+            postContent.innerText = post.content;
+
+            if (post.file) {
+                const imageContainer = document.getElementById('image-container');
+                const img = document.createElement('img');
+                img.src = post.file;
+                img.alt = '게시물 이미지';
+                imageContainer.appendChild(img);
+            }
+        } else {
+            postContent.innerText = '게시물을 찾을 수 없습니다.';
+        }
+
+        // 수정 버튼 클릭
+        editButton.addEventListener('click', () => {
+            if (editButton.innerText === "수정") {
+                // 수정 가능 상태로 설정
+                postContent.setAttribute("contenteditable", "true");
+                postContent.classList.add("editable"); // 편집 가능 스타일 적용
+                postContent.focus(); // 커서 포커스
+                editButton.innerText = "저장"; // 버튼 텍스트 변경
+            } else {
+                // 저장
+                const updatedContent = postContent.innerText.trim();
+                post.content = updatedContent;
+                posts[postIndex] = post;
+                localStorage.setItem('posts', JSON.stringify(posts));
+
+                // 화면에 업데이트된 내용 표시
+                postContent.setAttribute("contenteditable", "false");
+                postContent.classList.remove("editable"); // 편집 가능 스타일 제거
+                editButton.innerText = "수정"; // 버튼 텍스트 복원
+            }
+        });
+    </script>
+    <script id="dsq-count-scr" src="//2024-10-18.disqus.com/count.js" async></script>
+</body>
+</html>

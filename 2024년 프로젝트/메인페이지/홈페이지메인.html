@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KS - 필기 사이트</title>
+    <link rel="stylesheet" href="메인페이지.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="KakaoTalk_20241031_150215793.png" alt="" style="width: 100px; height: 75px;">
+            <nav>
+                <ul>
+                    <li class="dropdown">
+                        <a href="../계시판/게시판.html">게시판</a>
+                        <div class="dropdown-menu">
+                            <a href="../공지사항/공지사항.html">공지사항</a>
+                            <a href="../계시판/3학년.html">3학년</a>
+                            <a href="../계시판/2학년.html">2학년</a>
+                            <a href="../계시판/1학년.html">1학년</a>
+                        </div>
+                    </li>
+                    <li><a href="상점.html">나만의 상점</a></li>
+                    <li id="points-item">포인트: <span id="point-display">0</span></li>
+                    <li id="login-item"><a href="../회원가입&로그인/login.html">로그인</a></li>
+                    <li id="signup-item"><a href="../회원가입&로그인/register.html">회원가입</a></li>
+                    <li id="user-item" style="display: none;"><a href="../마이페이지/main.html" id="username"></a></li>
+                    <li id="logout-item" style="display: none;"><a href="#" onclick="logout()">로그아웃</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="hero">
+            <h1>필기 사이트</h1>
+            <p>친구들과 함께 필기를 공유하세요!</p>
+        </section>
+
+        <div class="wrap">
+            <div class="chat ch1">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="textbox">안녕하세요. 반갑습니다.</div>
+            </div>
+            <div class="chat ch2">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="textbox">저희는 필기사이트를 제작하면서</div>
+            </div>
+            <div class="chat ch1">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="textbox">어떡해 하면 편하게 필기하면서 단점들을 없앨수있을까</div>
+            </div>
+            <div class="chat ch2">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="textbox">생각한것이 책은 학교에 두고오면 가기는싫고 잃어버리거나 훼손되면 못쓰죠</div>
+            </div>
+            <div class="chat ch1">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="textbox">사이트로 만들면 파일을 올리거나 사진으로 올리면 잃어버리거나 훼손되어도 쓸 수 있게 편하게 만들었습니다.</div>
+            </div>
+            <div class="chat ch2">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="textbox">그리고 채팅을 하면서 필기 못한 것을 할 수 있고 게시판에 질의문답을 할 수 있습니다.</div>
+            </div>
+        </div>
+    </main>
+
+    <section id="skills">
+        <h2>기술 스택</h2>
+        <div class="skill">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" alt="HTML5" class="skill-icon">
+            <h3>HTML</h3>
+            <p>구조</p>
+        </div>
+        <div class="skill">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS3" class="skill-icon">
+            <h3>CSS</h3>
+            <p>디자인</p>
+        </div>
+        <div class="skill">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" alt="JavaScript" class="skill-icon">
+            <h3>JavaScript</h3>
+            <p>기능</p>
+        </div>
+    </section>
+
+    <div class="blackboard-background">
+        <div class="center">
+            <h1>영어문제</h1>
+            <div class="content">
+                한국대학교 기숙사에 도착했습니다. 피해자의 시신🔍1317은 평상복 차림으로 옷장🔍1376에 네타이🔍1385로 목이 멘 상태입니다. 
+                기숙사 방에서는 방카드키🔍1313와 김유나 학생의 스마트폰🔍1309 기숙사에서 최초 발견자 진선아 학생🔍1911과 기숙사 경비원인 서대길🔍1141 씨를 만났습니다.
+            </div>
+            <div class="button-container">
+                <div class="button" onclick="buttonClick('진선아 학생 조사')">
+                    진선아 학생 조사 <span>▶</span>
+                </div>
+                <div class="button" onclick="buttonClick('서대길씨 조사')">
+                    서대길씨 조사 <span>▶</span>
+                </div>
+                <div class="button" onclick="buttonClick('수사본부로 귀환')">
+                    수사본부로 귀환 <span>▶</span>
+                </div>
+            </div>
+        </div>
+        <div class="center">
+            <h1>국어문제</h1>
+            <div class="content">
+                한국대학교 기숙사에 도착했습니다. 피해자의 시신🔍1317은 평상복 차림으로 옷장🔍1376에 네타이🔍1385로 목이 멘 상태입니다. 
+                기숙사 방에서는 방카드키🔍1313와 김유나 학생의 스마트폰🔍1309 기숙사에서 최초 발견자 진선아 학생🔍1911과 기숙사 경비원인 서대길🔍1141 씨를 만났습니다.
+            </div>
+            <div class="button-container">
+                <div class="button" onclick="buttonClick('진선아 학생 조사')">
+                    진선아 학생 조사 <span>▶</span>
+                </div>
+                <div class="button" onclick="buttonClick('서대길씨 조사')">
+                    서대길씨 조사 <span>▶</span>
+                </div>
+                <div class="button" onclick="buttonClick('수사본부로 귀환')">
+                    수사본부로 귀환 <span>▶</span>
+                </div>
+            </div>
+        </div>
+        <div class="center">
+            <h1>수학문제</h1>
+            <div class="content">
+                다음은 서울시에 거주하는 30명의 고등학생들이 구한 시험 점수입니다:
+                {45, 50, 55, 60, 60, 65, 65, 70, 70, 75, 80, 85, 90, 90, 95, 95, 100, 100, 100, 105, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150}
+                위 데이터를 바탕으로, 시험 점수의 평균을 구하시오.
+            </div>
+            <div class="button-container">
+                <div class="button" onclick="buttonClick('85.5')">
+                    A: 85.5 <span>▶</span>
+                </div>
+                <div class="button" onclick="buttonClick('90.0')">
+                    B: 90.0 <span>▶</span>
+                </div>
+                <div class="button" onclick="buttonClick('92.5')">
+                    C: 92.5 <span>▶</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 팝업 창 -->
+    <div id="popup-container" class="popup hidden">
+        <div id="result-display" class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <p id="popup-message"></p>
+        </div>
+    </div>
+
+    <script src="메인페이지.js"></script>
+    <script src="https://kit.fontawesome.com/4795746079.js" crossorigin="anonymous"></script>
+    <script>
+        window.onload = function() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                document.getElementById('username').innerText = loggedInUser + '님';
+                document.getElementById('user-item').style.display = 'block';
+                document.getElementById('logout-item').style.display = 'block';
+                document.getElementById('login-item').style.display = 'none';
+                document.getElementById('signup-item').style.display = 'none';
+
+                const userPoints = localStorage.getItem(`${loggedInUser}_points`);
+                points = userPoints ? parseInt(userPoints) : 0;
+                updatePointsDisplay();
+            }
+        };
+
+        function updatePointsDisplay() {
+            document.getElementById('point-display').textContent = points;
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                localStorage.setItem(`${loggedInUser}_points`, points);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+            location.reload();
+        }
+    </script>
+
+    <!-- Tawk.to Script -->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6711b4164304e3196ad37a6f/1iaeieulv';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+</body>
+</html>

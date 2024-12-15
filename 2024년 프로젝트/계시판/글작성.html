@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>글쓰기</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .write-container {
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            margin-bottom: 16px;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .btn-submit {
+            width: 100px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        #thumbnail {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 16px;
+            display: none;
+            max-width: 300px;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="write-container">
+        <h1>글쓰기</h1>
+        <form id="write-form">
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="file">파일 첨부:</label>
+            <input type="file" id="file" name="file" accept="image/*" onchange="setThumbnail(event);">
+
+            <img id="thumbnail" alt="썸네일">
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" rows="8" required></textarea>
+
+            <label for="author">작성자:</label>
+            <input type="text" id="author" name="author" required>
+            <input type="submit" value="글쓰기" class="btn-submit">
+        </form>
+    </div>
+
+    <script>
+        // 썸네일을 표시하는 함수
+        function setThumbnail(event) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = document.getElementById('thumbnail');
+                img.src = event.target.result;
+                img.style.display = 'block';
+                console.log("썸네일 이미지 로드 완료");
+            };
+            reader.onerror = function() {
+                console.error("썸네일 이미지를 불러오는 중 오류 발생");
+                alert('이미지를 불러오는 중 오류가 발생했습니다.');
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // 욕설 확인을 위한 리스트
+        const forbiddenWords = ['시발','ㅅㅂ','tlqkf','병신','ㅂㅅ','개새끼','지랄','ㅈㄹ','니 애미','니 애비','니엄마다','ㅗ','한남','한녀','틀딱','창녀','찐따','정신병자','일베충','아다','아갈','아가리','썅놈','맘충','꺼져','ㄲㅈ','ㄱㅇ','게이','닥쳐','찐따','딸피'];
+
+        // 글쓰기 폼 제출 시 처리하는 함수
+        document.getElementById('write-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const author = document.getElementById('author').value;
+            const file = document.getElementById('file').files[0];
+
+            // 욕설 검사
+            const foundWords = forbiddenWords.filter(word => content.includes(word));
+            if (foundWords.length > 0) {
+                alert(`경고: 부적절한 단어가 포함되어 있습니다: ${foundWords.join(', ')}`);
+                return;
+            }
+   
+            const timestamp = new Date().toISOString().slice(0, 10);
+
+            // 파일 처리 및 저장
+            if (file) {
+                console.log("파일 선택됨:", file);
+                const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!allowedMimeTypes.includes(file.type)) {
+                    alert('이미지 파일(jpg, png, gif)만 업로드할 수 있습니다.');
+                    return;
+                }
+
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('파일 크기는 5MB 이하로 업로드 해주세요.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    console.log("파일 로드 성공");
+                    const fileUrl = event.target.result;
+                    savePost(title, content, author, timestamp, fileUrl);
+                };
+                reader.onerror = function() {
+                    console.error("파일 로드 중 오류 발생");
+                    alert('이미지 업로드 중 문제가 발생했습니다.');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                savePost(title, content, author, timestamp, null);
+            }
+        });
+
+        function savePost(title, content, author, timestamp, fileUrl) {
+            console.log("글 저장 시작", { title, content, author, timestamp, fileUrl });
+
+            const newPost = {
+                title: title,
+                content: content,
+                author: author,
+                timestamp: timestamp,
+                file: fileUrl
+            };
+
+            let posts = JSON.parse(localStorage.getItem('posts')) || [];
+            posts.push(newPost);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            console.log("글 저장 완료");
+
+            alert('글이 성공적으로 저장되었습니다!'); // 성공 메시지 추가
+            window.location.href = '게시판.html';
+        }
+
+        window.onload = function() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                document.getElementById('author').value = loggedInUser;
+            }
+        };
+    </script>
+</body>
+</html>
