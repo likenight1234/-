@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff; /* 전체 배경 흰색 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .footer a {
+            color: #333;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KS</h1>
+        <form id="signupForm">
+            <label for="userId">아이디:</label>
+            <input type="text" id="userId" required>
+            <div id="userIdMessage" class="message"></div>
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" required>
+            <div id="passwordMessage" class="message"></div>
+            <button type="submit" id="alertStart">가입하기</button>
+        </form>
+        <div class="footer">
+            <a href="login.html">로그인</a> | 
+            <a href="#">아이디 찾기</a> | 
+            <a href="#">비밀번호 찾기</a>
+        </div>
+    </div>
+    <script>
+       document.getElementById('signupForm').onsubmit = function (e) {
+    e.preventDefault();
+    const userId = document.getElementById('userId').value;
+    const password = document.getElementById('password').value;
+
+    // 로컬 스토리지에서 기존 사용자 목록 가져오기
+    let existingUsers = JSON.parse(localStorage.getItem('userList')) || [];
+
+    // 아이디 중복 체크
+    const userExists = existingUsers.some(user => user.userId === userId);
+    if (userExists) {
+        document.getElementById('userIdMessage').innerText = '이미 사용 중인 아이디입니다.';
+        return;
+    } else {
+        document.getElementById('userIdMessage').innerText = '';
+    }
+
+    // 아이디 한글 금지 체크
+    const koreanRegex = /[ㄱ-ㅎ|가-힣]/;
+    if (koreanRegex.test(userId)) {
+        document.getElementById('userIdMessage').innerText = '아이디는 한글을 포함할 수 없습니다.';
+        return;
+    }
+
+    // 비밀번호 길이 체크 및 특수문자 포함 체크
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    if (password.length < 8) {
+        document.getElementById('passwordMessage').innerText = '비밀번호는 8자리 이상이어야 합니다.';
+        return;
+    } else if (!specialCharRegex.test(password)) {
+        document.getElementById('passwordMessage').innerText = '비밀번호는 특수문자를 포함해야 합니다.';
+        return;
+    } else {
+        document.getElementById('passwordMessage').innerText = '';
+    }
+
+    // 사용자 정보 추가
+    const newUser = { userId, password };
+    existingUsers.push(newUser);
+    localStorage.setItem('userList', JSON.stringify(existingUsers));
+
+    alert('회원가입이 완료되었습니다.');
+    window.location.href = 'login.html';
+};
+
+        
+$().ready(function () {
+            $("#alertStart").click(function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: '회원가입이 완료되었습니다.',
+                    text: '회원가입정보가 로그인으로 넘어갔습니다.',
+                });
+            });
+        });
+    </script>
+</body>
+</html>

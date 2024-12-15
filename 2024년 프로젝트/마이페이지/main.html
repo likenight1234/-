@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile-info">
+                <img src="profile.jpg" class="sidebar-profile-pic">
+                <h2 id="sidebar-username">사용자 이름</h2> <!-- 사용자 이름을 표시할 부분 -->
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="../메인페이지/홈페이지메인.html" class="home-button"><i class="fas fa-home"></i> 홈</a></li>
+                    <li><a href="#info"><i class="fas fa-info-circle"></i> 내 정보</a></li>
+                    <li><a href="../메인페이지/클래스.html"><i class="fas fas fa-chalkboard"></i>나의 학급</a></li>
+                    <li><a href="#points"><i class="fas fa-coins"></i> 포인트 내역</a></li>
+                    <li><a href="#activity"><i class="fas fa-clock"></i> 최근 활동</a></li>
+                    <li><a href="#favorites"><i class="fas fa-star"></i> 즐겨 찾기</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> 계정 설정</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <section class="profile" id="profile">
+                <h2>프로필 정보</h2>
+                <div class="profile-pic-container">
+                    <img src="profile.jpg" class="profile-pic">
+                    <button class="edit-pic-button">사진 수정</button>
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
+                </div>
+                <div class="input-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" placeholder="이름을 입력하세요">
+                </div>
+                <div class="input-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" placeholder="이메일을 입력하세요">
+                </div>
+                <button class="edit-button">수정하기</button>
+            </section>
+            <section class="info" id="info">
+                <h3>내 정보</h3>
+                <div class="input-group">
+                    <label for="phone">전화번호</label>
+                    <input type="text" id="phone" placeholder="전화번호를 입력하세요">
+                </div>
+                <button class="add-points-button">정보 저장하기</button>
+            </section>
+            <footer>
+                <p>© 2024 나의 웹사이트</p>
+            </footer>
+        </main>
+    </div>
+    <script>
+        // 로그인 상태 관리
+        window.onload = function() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                document.getElementById('sidebar-username').innerText = loggedInUser + '님'; // 사이드바에 사용자 이름 표시
+                document.getElementById('name').value = loggedInUser; // 이름 입력 필드에 기본값으로 설정
+            }
+        };
+
+        function logout() {
+            localStorage.removeItem('loggedInUser'); // 로그아웃 시 사용자 정보 삭제
+            location.reload(); // 페이지 새로고침
+        }
+
+        // 프로필 사진 업로드 기능
+        const fileInput = document.getElementById('file-input');
+        const profilePic = document.querySelector('.profile-pic');
+        const sidebarProfilePic = document.querySelector('.sidebar-profile-pic'); // 사이드바 프로필 사진
+        const editPicButton = document.querySelector('.edit-pic-button');
+        const sidebarUserName = document.getElementById('sidebar-username'); // 사이드바 사용자 이름
+
+        // 사진 수정 버튼 클릭 시 파일 입력 클릭
+        editPicButton.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // 파일 선택 시 프로필 사진 변경
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profilePic.src = e.target.result; // 메인 프로필 사진 변경
+                    sidebarProfilePic.src = e.target.result; // 사이드바 프로필 사진 변경
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 정보 수정 및 저장 버튼 클릭 이벤트 리스너
+        const editButton = document.querySelector('.edit-button');
+        const addPointsButton = document.querySelector('.add-points-button');
+
+        const showAlert = (message) => alert(message);
+
+        editButton.addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!name || !email || !phone) {
+                showAlert("모든 필드를 입력하세요.");
+                return;
+            }
+
+            showAlert(`정보가 저장되었습니다:\n이름: ${name}\n이메일: ${email}\n전화번호: ${phone}`);
+        });
+
+        addPointsButton.addEventListener('click', () => {
+            const phone = document.getElementById('phone').value;
+
+            if (!phone) {
+                showAlert("전화번호를 입력하세요.");
+                return;
+            }
+
+            showAlert(`전화번호가 저장되었습니다: ${phone}`);
+        });
+    </script>
+</body>
+</html>

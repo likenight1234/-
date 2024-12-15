@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password Protected Site</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        background-color: #001f3f; /* 남색 배경 */
+        color: white;
+        padding-top: 50px;
+        margin: 0;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .password-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .password-container input {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        font-size: 24px;
+        margin: 0 5px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        background-color: #fff;
+        color: #000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    .password-container input:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 18px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    button:hover {
+        background-color: #45a049;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+    .message {
+        margin-top: 20px;
+        font-size: 1.2em;
+    }
+    #timer {
+        width: 100px;
+        height: 100px;
+        margin: 20px auto;
+        border: 10px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        position: relative;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #timer::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+</head>
+<body>
+    <h1>비밀번호 입력</h1>
+    <div class="password-container">
+        <input type="text" value="삼" disabled>
+        <input type="text" value="일" disabled>
+        <input type="text" id="char3" maxlength="1">
+        <input type="text" id="char4" maxlength="1">
+    </div>
+    <button onclick="checkPassword()">제출</button>
+    <div id="message" class="message"></div>
+    <div id="timer">60</div>
+
+    <audio id="successSound" src="Correct 5.mp3" preload="auto"></audio>
+    <audio id="errorSound" src="Error 5.mp3" preload="auto"></audio>
+    <audio id="inputSound" src="Coin 1.mp3" preload="auto"></audio>
+
+    <script>
+        let timeLeft = 60;
+        const timerElement = document.getElementById('timer');
+
+        document.getElementById('char3').addEventListener('input', playInputSound);
+        document.getElementById('char4').addEventListener('input', playInputSound);
+
+        function playInputSound() {
+            const inputSound = document.getElementById('inputSound');
+            inputSound.play();
+        }
+
+        function checkPassword() {
+            const char3 = document.getElementById('char3').value;
+            const char4 = document.getElementById('char4').value;
+            const fullPassword = "삼일" + char3 + char4;
+            const messageDiv = document.getElementById('message');
+            const successSound = document.getElementById('successSound');
+            const errorSound = document.getElementById('errorSound');
+
+            if (fullPassword === "삼일도제") {
+                messageDiv.textContent = "비밀번호가 맞습니다! 접근이 허용되었습니다.";
+                messageDiv.style.color = "#2ecc71";
+                successSound.play();
+                setTimeout(() => {
+                    window.location.href = "홈페이지메인.html";
+                }, 1000);
+            } else {
+                messageDiv.textContent = "비밀번호가 틀렸습니다. 다시 시도해 주세요.";
+                messageDiv.style.color = "#e74c3c";
+                errorSound.play();
+            }
+        }
+
+        function updateTimer() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+            } else {
+                alert("시간이 초과되었습니다. 창을 닫습니다.");
+                window.close(); // 창 닫기
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>

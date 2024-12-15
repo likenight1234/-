@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 상점</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>나만의 상점</h1>
+            <nav>
+                <ul>
+                    <li><a href="홈페이지메인.html">홈</a></li>
+                    <li><a href="../계시판/게시판.html">게시판</a></li>
+                    <li id="points-item">포인트: <span id="point-display">0</span></li>
+                    <li id="login-item"><a href="../회원가입&로그인/login.html">로그인</a></li>
+                    <li id="signup-item"><a href="../회원가입&로그인/register.html">회원가입</a></li>
+                    <li id="user-item" style="display: none;"><a href="../마이페이지/main.html" id="username"></a></li>
+                    <li id="logout-item" style="display: none;"><a href="#" onclick="logout()">로그아웃</a></li>
+                    <li id="cart-item" style="display: none;">
+                        <a href="장바구니.html">
+                            <i class="fas fa-shopping-cart"></i> 장바구니 (<span id="cart-count">0</span>)
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="slidewrap">
+        <div class="slides">
+            <div class="section1 slide"><img src="KakaoTalk_20241024_134448821_01.jpg" alt=""></div>
+            <div class="section2 slide"><img src="KakaoTalk_20241024_134448821_02.jpg" alt=""></div>
+            <div class="section3 slide"><img src="KakaoTalk_20241024_134448821.jpg" alt=""></div> 
+            <div class="section4 slide"><img src="KakaoTalk_20241024_152739260.jpg" alt=""></div>
+            <div class="section5 slide"><img src="KakaoTalk_20241024_152739260_01.jpg" alt=""></div>
+            <div class="section6 slide"><img src="KakaoTalk_20241024_152739260_02.jpg" alt=""></div>   
+        </div>
+    </div>
+
+    <section class="store-items">
+        <h2>오늘의 추천 상품</h2>
+        <div class="items-grid">
+            <div class="item-card">
+                <i class="fas fa-pencil-alt"></i>
+                <h3>연필</h3>
+                <p>1350P</p>
+                <button class="buy-button" data-name="연필" data-price="1350P">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-highlighter"></i>
+                <h3>샤프</h3>
+                <p>1820P</p>
+                <button class="buy-button" data-name="샤프" data-price="1820P">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-eraser"></i>
+                <h3>지우개</h3>
+                <p>1350P</p>
+                <button class="buy-button" data-name="지우개" data-price="1350P">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-pencil-ruler"></i>
+                <h3>필통</h3>
+                <p>1350P</p>
+                <button class="buy-button" data-name="필통" data-price="1350P">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-pen"></i>
+                <h3>볼펜</h3>
+                <p>1350P</p>
+                <button class="buy-button" data-name="볼펜" data-price="1350P">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-paint-brush"></i>
+                <h3>화이트</h3>
+                <p>1350P</p>
+                <button class="buy-button" data-name="화이트" data-price="1350P">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-highlighter"></i>
+                <h3>형광펜</h3>
+                <p>1350P</p>
+                <button class="buy-button" data-name="형광펜" data-price="1350P">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-book"></i>
+                <h3>공책</h3>
+                <p>1350P</p>
+                <button class="buy-button" data-name="공책" data-price="1350P">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-sticky-note"></i>
+                <h3>메모지</h3>
+                <p>1350P</p>
+                <button class="buy-button" data-name="메모지" data-price="1350P">구매하기</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="store-items">
+        <h2>상품</h2>
+        <div class="items-grid">
+            <div class="item-card">
+                <i class="fab fa-usb"></i>
+                <h3>USB</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="USB" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-mouse"></i>
+                <h3>마우스</h3>
+                <p>1820 RP</p>
+                <button class="buy-button" data-name="마우스" data-price="1820 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-keyboard"></i>
+                <h3>키보드</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="키보드" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-plug"></i>
+                <h3>C타입 충전기</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="C타입 충전기" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-charging-station"></i>
+                <h3>노트북 충전기</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="노트북 충전기" data-price="1350 RP">구매하기</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="store-items">
+        <h2>준비물</h2>
+        <div class="items-grid">
+            <div class="item-card">
+                <i class="fas fa-book-open"></i>
+                <h3>독서대</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="독서대" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-ring"></i>
+                <h3>머리끈</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="머리끈" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-compact-disc"></i>
+                <h3>거울</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="거울" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-pen-alt"></i>
+                <h3>네임펜</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="네임펜" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-headphones"></i>
+                <h3>귀마개</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="귀마개" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-bed"></i>
+                <h3>담요</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="담요" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-file-alt"></i>
+                <h3>A4용지</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="A4용지" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-tape"></i>
+                <h3>테이프</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="테이프" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-clock"></i>
+                <h3>시계</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="시계" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-toilet-paper"></i>
+                <h3>휴지</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="휴지" data-price="1350 RP">구매하기</button>
+            </div>
+            <div class="item-card">
+                <i class="fas fa-folder-open"></i>
+                <h3>클리어파일</h3>
+                <p>1350 RP</p>
+                <button class="buy-button" data-name="클리어파일" data-price="1350 RP">구매하기</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 나만의 상점 - 모든 권리 보유.</p>
+    </footer>
+
+    <script>
+        // 슬라이드 쇼 기능
+        const slideContainer = document.querySelector(".slides");
+        const slides = document.querySelectorAll(".slide");
+        let currentSlide = 0;
+
+        function moveToNextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            slideContainer.style.transform = `translateX(-${100 * currentSlide}%)`;
+        }
+        setInterval(moveToNextSlide, 3000);
+
+        // 로그인 상태 관리
+        window.onload = () => {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                document.getElementById('username').innerText = `${loggedInUser}님`;
+                document.getElementById('user-item').style.display = 'block';
+                document.getElementById('logout-item').style.display = 'block';
+                document.getElementById('login-item').style.display = 'none';
+                document.getElementById('signup-item').style.display = 'none';
+                document.getElementById('cart-item').style.display = 'block';
+                const userPoints = localStorage.getItem(`${loggedInUser}_points`);
+                points = userPoints ? parseInt(userPoints) : 0;
+                updatePointsDisplay();
+                updateCartCount();
+            }
+        };
+        // 장바구니 관리
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        // 장바구니 추가 기능
+        document.querySelectorAll('.buy-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = {
+                    name: button.getAttribute('data-name'),
+                    price: button.getAttribute('data-price'),
+                    quantity: 1
+                };
+                const existingItem = cart.find(cartItem => cartItem.name === item.name);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push(item);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert(`${item.name}가 장바구니에 추가되었습니다!`);
+                updateCartCount();
+            });
+        });
+        
+        function updatePointsDisplay() {
+            document.getElementById('point-display').textContent = points;
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                localStorage.setItem(`${loggedInUser}_points`, points);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+            location.reload();
+        }
+    </script>
+</body>
+</html>

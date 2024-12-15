@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff; /* 전체 배경 흰색 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .footer a {
+            color: #333;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>KS</h2>
+        <form id="loginForm">
+            <label for="userId">아이디:</label>
+            <input type="text" id="userId" required>
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" required>
+            <button type="submit" id="alertStart">로그인</button>
+        </form>
+        <div class="footer">
+            <a href="register.html">회원가입</a> | 
+            <a href="#">아이디 찾기</a> | 
+            <a href="#">비밀번호 찾기</a>
+        </div>
+    </div>
+    <script>
+document.getElementById('loginForm').onsubmit = function(e) {
+    e.preventDefault();
+    const userId = document.getElementById('userId').value;
+    const password = document.getElementById('password').value;
+
+    // 로컬 스토리지에서 기존 사용자 목록 가져오기
+    const existingUsers = JSON.parse(localStorage.getItem('userList')) || [];
+
+    // 사용자 정보 확인
+    const user = existingUsers.find(user => user.userId === userId && user.password === password);
+
+    if (user) {
+        alert('로그인이 완료되었습니다.');
+        localStorage.setItem('loggedInUser', userId); // 로그인한 사용자 저장
+        localStorage.setItem('userPoints', 0); // 기본 포인트 설정
+        window.location.href = '../메인페이지/홈페이지메인.html'; // 메인 페이지로 이동
+    } else {
+        alert('아이디나 비밀번호가 올바르지 않습니다.');
+    }
+};
+
+        $().ready(function () {
+            $("#alertStart").click(function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그인이 완료되었습니다.'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
